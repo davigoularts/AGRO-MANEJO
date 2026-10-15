@@ -13,6 +13,7 @@ public class OpenApiConfig {
         return new OpenAPI()
                 .info(new Info()
                         .title("AgroManejo")
-                        .version("1.0"));
+                        .version("1.0")
+                        .description("API do produtor rural para controlar lotes, colheitas, insumos, compradores e vendas. "));
     }
 }
