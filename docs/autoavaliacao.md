@@ -6,7 +6,7 @@ Marcação do grupo, com base nos 10 critérios da revisão do código (`AVALIAC
 
 | Critério | Marca | Onde conferir |
 |---|---|---|
-| **P1** Sobe pelo README | ✅ | `docker compose up -d` e `./mvnw spring-boot:run`, como no README. Testado clonando o repositório numa pasta vazia |
+| **P1** Sobe pelo README | ✅ | `docker compose up -d --build`, como no README. Testado clonando o repositório numa pasta vazia |
 | **P2** Camadas | ✅ | Cada classe está no pacote da sua camada (`controller`, `service`, `mapper`, `repository`, `model`, `dto`) com os nomes da convenção. As exceções do domínio ficam em `service/` |
 | **P3** Banco e entidades | ✅ | Migrations `V1` a `V5` criam as 5 tabelas, com as chaves estrangeiras `lote_id` e `id_comprador`. Cada tabela tem a sua `@Entity` e o Hibernate confere com `ddl-auto=validate` |
 | **P4** DTOs | ✅ | As 5 entidades têm `RequestDTO` com validações e `ResponseDTO`. Nenhum Controller importa classe de `model` |

@@ -156,13 +156,21 @@ O contrato completo, com todas as rotas e os DTOs, está em [docs/contrato-da-ap
 
 ## Como executar
 
-Pré-requisitos: JDK 25, Docker Desktop aberto e Git.
+Pré-requisitos: Docker aberto (Docker Desktop no Windows e no Mac) e Git. Não precisa de Java instalado: a API é compilada e roda dentro de um container.
 
 ```bash
 git clone https://github.com/davigoularts/AGRO-MANEJO.git
 cd AGRO-MANEJO
 
-docker compose up -d          # sobe o PostgreSQL na porta 5437
+docker compose up -d --build   # sobe o PostgreSQL (porta 5437) e a API (porta 8080)
+```
+
+Na primeira vez o build baixa as dependências e leva alguns minutos. A API está no ar quando `docker compose logs api` mostrar `Started AgroManejoApplication`.
+
+**Rodando a API pelo Maven (com JDK 25 instalado):** suba só o banco, para a porta 8080 ficar livre, e rode a API:
+
+```bash
+docker compose up -d postgres
 ./mvnw spring-boot:run        # Windows: .\mvnw.cmd spring-boot:run
 ```
 
@@ -177,7 +185,7 @@ Para testar as rotas, use o Swagger UI ou o **Postman**. No Postman, importe tod
 
 Para ver as regras barrando um pedido, siga esta ordem: cadastre um lote (`POST /lotes`), uma colheita nele (`POST /colheitas`), um comprador (`POST /compradores`) e depois uma venda (`POST /vendas`). Depois tente uma colheita acima de 100 sacas por hectare (RN01), uma venda com preço muito diferente do combinado (RN02) e uma venda maior que o estoque (RN03).
 
-Para parar: `Ctrl+C` na API e `docker compose stop` no banco. Para apagar o banco e rodar as migrations do zero: `docker compose down -v` e suba de novo.
+Depois de mudar o código, rode `docker compose up -d --build` de novo para recompilar a API. Para parar: `docker compose down` (os dados do banco ficam guardados). Para apagar o banco e rodar as migrations do zero: `docker compose down -v` e suba de novo.
 
 ## Situação do projeto
 

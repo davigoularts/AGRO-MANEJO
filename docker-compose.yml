@@ -37,6 +37,23 @@ services:
       # Tenta cinco vezes antes de marcar o serviço como unhealthy.
       retries: 5
 
+  # Declara o serviço da API, compilada pelo Dockerfile da raiz do projeto.
+  api:
+    # Monta a imagem a partir do Dockerfile desta pasta.
+    build: .
+    # Define um nome fixo para localizar o container facilmente.
+    container_name: agro-manejo-api
+    # Só sobe a API depois que o banco responder ao healthcheck.
+    depends_on:
+      postgres:
+        condition: service_healthy
+    # Dentro da rede do Compose, o banco é o host "postgres" na porta 5432.
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/projeto
+    # Publica a API no computador host.
+    ports:
+      - "8080:8080"
+
 # Declara os volumes nomeados usados pelos serviços.
 volumes:
   # Mantém os dados do PostgreSQL entre reinicializações.
