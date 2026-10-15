@@ -20,9 +20,9 @@ Projeto Final da disciplina de Backend (Engenharia de Software, SATC). **Etapa 1
 
 | Nome | GitHub |
 |---|---|
-| PREENCHER: nome completo do integrante 1 | [@usuario1](https://github.com/usuario1) |
-| PREENCHER: nome completo do integrante 2 | [@usuario2](https://github.com/usuario2) |
-| PREENCHER: nome completo do integrante 3 | [@usuario3](https://github.com/usuario3) |
+| Davi Goulart | [@davigoularts](https://github.com/davigoularts) |
+| Laurent Vieira | indisponível |
+| Arthur Ramos | [@ArthurRamos567](https://github.com/ArthurRamos567) |
 
 ## O problema
 
@@ -159,8 +159,8 @@ O contrato completo, com todas as rotas e os DTOs, está em [docs/contrato-da-ap
 Pré-requisitos: JDK 25, Docker Desktop aberto e Git.
 
 ```bash
-git clone https://github.com/usuario/agro-manejo.git
-cd agro-manejo
+git clone https://github.com/davigoularts/AGRO-MANEJO.git
+cd AGRO-MANEJO
 
 docker compose up -d          # sobe o PostgreSQL na porta 5437
 ./mvnw spring-boot:run        # Windows: .\mvnw.cmd spring-boot:run
