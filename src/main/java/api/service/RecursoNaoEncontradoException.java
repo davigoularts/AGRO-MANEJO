@@ -1,9 +1,9 @@
 package api.service;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
-@ResponseStatus(HttpStatus.NOT_FOUND)
+// CAMADA: Service
+// RESPONSABILIDADE: classe-mãe das exceções de "não encontrado" (vira 404 no ApiExceptionHandler)
+// REGRAS: cada entidade tem a sua filha, lançada pelo service quando o id não existe
+// SITUAÇÃO: implementada
 public class RecursoNaoEncontradoException extends RuntimeException {
 
     public RecursoNaoEncontradoException(String mensagem) {

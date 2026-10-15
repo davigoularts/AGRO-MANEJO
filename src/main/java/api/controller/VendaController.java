@@ -1,10 +1,13 @@
 package api.controller;
 
+import api.dto.ErroDTO;
 import api.dto.VendaRequestDTO;
 import api.dto.VendaResponseDTO;
 import api.service.VendaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -40,6 +43,10 @@ public class VendaController {
                     + "divergir mais de 50% do preço combinado. RN03: a quantidade não pode passar do "
                     + "estoque da planta (total colhido menos total já vendido).")
     @ApiResponse(responseCode = "201", description = "Venda registrada: o corpo já traz o id gerado")
+    @ApiResponse(responseCode = "400", description = "Corpo inválido, ou regra RN02 ou RN03 violada (a mensagem diz qual)",
+            content = @Content(schema = @Schema(implementation = ErroDTO.class)))
+    @ApiResponse(responseCode = "404", description = "O comprador não existe",
+            content = @Content(schema = @Schema(implementation = ErroDTO.class)))
     @PostMapping
     public ResponseEntity<VendaResponseDTO> registrar(@RequestBody @Valid VendaRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.registrar(dto));
@@ -54,6 +61,8 @@ public class VendaController {
 
     @Operation(summary = "Busca uma venda pelo id")
     @ApiResponse(responseCode = "200", description = "Venda encontrada")
+    @ApiResponse(responseCode = "404", description = "Não existe venda com esse id",
+            content = @Content(schema = @Schema(implementation = ErroDTO.class)))
     @GetMapping("/{id}")
     public ResponseEntity<VendaResponseDTO> buscarPorId(
             @Parameter(description = "Id da venda", example = "1") @PathVariable Long id) {

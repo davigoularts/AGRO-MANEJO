@@ -71,7 +71,7 @@ A API é organizada em camadas. Uma requisição entra pelo Controller, passa pe
 | Colheita | `V4__criar_colheitas.sql`, pronta | `Colheita`, pronta | `ColheitaRepository`, pronto | `ColheitaRequestDTO`, `ColheitaResponseDTO`, prontos | `ColheitaMapper`, implementado | `ColheitaService`, implementado (RN01) | `ColheitaController`, implementado |
 | Venda | `V5__criar_vendas.sql`, pronta | `Venda`, pronta | `VendaRepository`, pronto | `VendaRequestDTO`, `VendaResponseDTO`, prontos | `VendaMapper`, implementado | `VendaService`, implementado (RN02 e RN03) | `VendaController`, implementado |
 
-Também fazem parte do projeto, vindas do template: `RecursoNaoEncontradoException`, `RegraDeNegocioException` e `OpenApiConfig`. Cada entidade tem a sua exceção de "não encontrado", em `service/`: `LoteNaoEncontradoException`, `InsumoNaoEncontradoException`, `CompradorNaoEncontradoException`, `ColheitaNaoEncontradaException` e `VendaNaoEncontradaException`.
+Também fazem parte do projeto, vindas do template: `ApiExceptionHandler`, `ErroDTO`, `CampoErroDTO`, `RecursoNaoEncontradoException`, `RegraDeNegocioException` e `OpenApiConfig`. Cada entidade tem a sua exceção de "não encontrado", em `service/`: `LoteNaoEncontradoException`, `InsumoNaoEncontradoException`, `CompradorNaoEncontradoException`, `ColheitaNaoEncontradaException` e `VendaNaoEncontradaException`.
 
 ## Entidades
 

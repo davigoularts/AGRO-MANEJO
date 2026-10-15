@@ -2,9 +2,12 @@ package api.controller;
 
 import api.dto.CompradorRequestDTO;
 import api.dto.CompradorResponseDTO;
+import api.dto.ErroDTO;
 import api.service.CompradorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -38,6 +41,8 @@ public class CompradorController {
             description = "O CNPJ pode vir com ou sem pontuação e é guardado só com números. "
                     + "Não aceita CNPJ repetido.")
     @ApiResponse(responseCode = "201", description = "Comprador cadastrado: o corpo já traz o id gerado")
+    @ApiResponse(responseCode = "400", description = "Corpo inválido (inclusive CNPJ inválido), ou CNPJ já cadastrado (a mensagem diz qual)",
+            content = @Content(schema = @Schema(implementation = ErroDTO.class)))
     @PostMapping
     public ResponseEntity<CompradorResponseDTO> cadastrar(@RequestBody @Valid CompradorRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastrar(dto));
@@ -52,6 +57,8 @@ public class CompradorController {
 
     @Operation(summary = "Busca um comprador pelo id")
     @ApiResponse(responseCode = "200", description = "Comprador encontrado")
+    @ApiResponse(responseCode = "404", description = "Não existe comprador com esse id",
+            content = @Content(schema = @Schema(implementation = ErroDTO.class)))
     @GetMapping("/{id}")
     public ResponseEntity<CompradorResponseDTO> buscarPorId(
             @Parameter(description = "Id do comprador", example = "1") @PathVariable Long id) {

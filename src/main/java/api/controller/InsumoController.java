@@ -1,10 +1,13 @@
 package api.controller;
 
+import api.dto.ErroDTO;
 import api.dto.InsumoRequestDTO;
 import api.dto.InsumoResponseDTO;
 import api.service.InsumoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -36,6 +39,8 @@ public class InsumoController {
 
     @Operation(summary = "Cadastra um insumo", description = "Não aceita dois insumos com o mesmo nome.")
     @ApiResponse(responseCode = "201", description = "Insumo cadastrado: o corpo já traz o id gerado")
+    @ApiResponse(responseCode = "400", description = "Corpo inválido, ou já existe um insumo com esse nome (a mensagem diz qual)",
+            content = @Content(schema = @Schema(implementation = ErroDTO.class)))
     @PostMapping
     public ResponseEntity<InsumoResponseDTO> cadastrar(@RequestBody @Valid InsumoRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastrar(dto));
@@ -50,6 +55,8 @@ public class InsumoController {
 
     @Operation(summary = "Busca um insumo pelo id")
     @ApiResponse(responseCode = "200", description = "Insumo encontrado")
+    @ApiResponse(responseCode = "404", description = "Não existe insumo com esse id",
+            content = @Content(schema = @Schema(implementation = ErroDTO.class)))
     @GetMapping("/{id}")
     public ResponseEntity<InsumoResponseDTO> buscarPorId(
             @Parameter(description = "Id do insumo", example = "1") @PathVariable Long id) {

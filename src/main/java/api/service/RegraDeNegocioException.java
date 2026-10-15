@@ -1,9 +1,9 @@
 package api.service;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
-@ResponseStatus(HttpStatus.BAD_REQUEST)
+// CAMADA: Service
+// RESPONSABILIDADE: avisar que uma regra de negócio foi violada (vira 400 no ApiExceptionHandler)
+// REGRAS: a mensagem diz qual regra barrou o pedido (ex.: "RN03: estoque insuficiente...")
+// SITUAÇÃO: implementada
 public class RegraDeNegocioException extends RuntimeException {
 
     public RegraDeNegocioException(String mensagem) {

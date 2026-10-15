@@ -2,9 +2,12 @@ package api.controller;
 
 import api.dto.ColheitaRequestDTO;
 import api.dto.ColheitaResponseDTO;
+import api.dto.ErroDTO;
 import api.service.ColheitaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -39,6 +42,10 @@ public class ColheitaController {
             description = "RN01: o lote precisa existir e a quantidade não pode passar de "
                     + "100 sacas por hectare do lote.")
     @ApiResponse(responseCode = "201", description = "Colheita registrada: o corpo já traz o id gerado")
+    @ApiResponse(responseCode = "400", description = "Corpo inválido, ou regra RN01 violada (a mensagem diz qual)",
+            content = @Content(schema = @Schema(implementation = ErroDTO.class)))
+    @ApiResponse(responseCode = "404", description = "O lote não existe",
+            content = @Content(schema = @Schema(implementation = ErroDTO.class)))
     @PostMapping
     public ResponseEntity<ColheitaResponseDTO> registrar(@RequestBody @Valid ColheitaRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.registrar(dto));
@@ -53,6 +60,8 @@ public class ColheitaController {
 
     @Operation(summary = "Busca uma colheita pelo id")
     @ApiResponse(responseCode = "200", description = "Colheita encontrada")
+    @ApiResponse(responseCode = "404", description = "Não existe colheita com esse id",
+            content = @Content(schema = @Schema(implementation = ErroDTO.class)))
     @GetMapping("/{id}")
     public ResponseEntity<ColheitaResponseDTO> buscarPorId(
             @Parameter(description = "Id da colheita", example = "1") @PathVariable Long id) {
