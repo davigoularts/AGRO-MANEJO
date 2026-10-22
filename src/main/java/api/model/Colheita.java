@@ -29,12 +29,18 @@ public class Colheita {
     @Column(nullable = false)
     private BigDecimal quantidade;
 
+    // Novo campo adicionado aqui:
+    @Column(nullable = false)
+    private String planta;
+
     protected Colheita() {
     }
 
-    public Colheita(Lote lote, BigDecimal quantidade) {
+    // Atualizamos o construtor para receber a planta também:
+    public Colheita(Lote lote, BigDecimal quantidade, String planta) {
         this.lote = lote;
         this.quantidade = quantidade;
+        this.planta = planta;
     }
 
     public Long getId() {
@@ -47,5 +53,14 @@ public class Colheita {
 
     public BigDecimal getQuantidade() {
         return quantidade;
+    }
+
+    // Novos métodos de leitura e escrita da planta:
+    public String getPlanta() {
+        return planta;
+    }
+
+    public void setPlanta(String planta) {
+        this.planta = planta;
     }
 }

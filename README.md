@@ -21,7 +21,7 @@ Projeto Final da disciplina de Backend (Engenharia de Software, SATC). **Etapa 1
 | Nome | GitHub |
 |---|---|
 | Davi Goulart | [@davigoularts](https://github.com/davigoularts) |
-| Laurent Vieira | indisponível |
+| Laurent Vieira | [@laurentviera160](https://github.com/laurentviera160) |
 | Arthur Ramos | [@ArthurRamos567](https://github.com/ArthurRamos567) |
 
 ## O problema

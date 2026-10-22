@@ -14,10 +14,12 @@ import org.springframework.stereotype.Component;
 public class ColheitaMapper {
 
     public Colheita toEntity(ColheitaRequestDTO dto, Lote lote) {
-        return new Colheita(lote, dto.quantidade());
+        // Agora passamos também o nome da planta que vem do DTO:
+        return new Colheita(lote, dto.quantidade(), dto.planta());
     }
 
     public ColheitaResponseDTO toResponse(Colheita colheita) {
-        return new ColheitaResponseDTO(colheita.getId(), colheita.getLote().getId(), colheita.getQuantidade());
+        // Agora incluímos a planta no relatório de resposta enviado para a tela:
+        return new ColheitaResponseDTO(colheita.getId(), colheita.getLote().getId(), colheita.getQuantidade(), colheita.getPlanta());
     }
 }

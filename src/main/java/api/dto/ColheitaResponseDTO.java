@@ -14,5 +14,8 @@ public record ColheitaResponseDTO(
         @Schema(description = "Id do lote colhido", example = "1")
         Long loteId,
         @Schema(description = "Sacas colhidas", example = "800")
-        BigDecimal quantidade) {
+        BigDecimal quantidade,
+        // Novo campo adicionado na resposta da API
+        @Schema(description = "Nome da cultura/planta colhida", example = "Soja")
+        String planta) {
 }
